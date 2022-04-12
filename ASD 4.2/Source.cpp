@@ -56,54 +56,7 @@ stats Sort_Of_Shell(std::vector <int>& v)
 
 }
 
-void heapify(std::vector<int>& v, int n, int i, stats& stat)
-{
-	int largest = i;
-	// Инициализируем наибольший элемент как корень
-	int l = 2 * i + 1; // левый = 2*i + 1
-	int r = 2 * i + 2; // правый = 2*i + 2
 
- // Если левый дочерний элемент больше корня
-	if (l < n && v[l] > v[largest])
-		largest = l;
-
-	// Если правый дочерний элемент больше, чем самый большой элемент на данный момент
-	if (r < n && v[r] > v[largest])
-		largest = r;
-
-	// Если самый большой элемент не корень
-	if (largest != i)
-	{
-		int tmp = v[i];
-		v[i] = v[largest];
-		v[largest] = tmp;
-		stat.copy_count++;
-		// Рекурсивно преобразуем в двоичную кучу затронутое поддерево
-		heapify(v, n, largest, stat);
-	}
-}
-
-stats Heap_Sort(std::vector<int>& v)
-{
-	stats stat;
-	for (int i = v.size() / 2 - 1; i >= 0; i--)
-	{
-		stat.comparison_count++;
-		heapify(v, v.size(), i, stat);
-	}
-	// Один за другим извлекаем элементы из кучи
-	for (int i = v.size() - 1; i >= 0; i--)
-	{
-		// Перемещаем текущий корень в конец
-		int tmp = v[0];
-		v[0] = v[i];
-		v[i] = tmp;;
-		stat.copy_count ++;
-		// вызываем процедуру heapify на уменьшенной куче
-		heapify(v, i, 0, stat);
-	}
-	return stat;
-}
 
 int main()
 {
@@ -142,14 +95,14 @@ int main()
 	std::cout << "Number of copies:" << stat.copy_count << std::endl;
 	
 
-	std::vector<int> v1 = { 8,1,3,10,4,5,2,9,7,6 };
-	for (auto i = v1.begin(); i != v1.end(); ++i)
+	std::vector<int> v3 = { 8,1,3,10,4,5,2,9,7,6 };
+	for (auto i = v3.begin(); i != v3.end(); ++i)
 	{
 		std::cout << *i << " ";
 	}
 	std::cout << "\n";
-	stat = Heap_Sort(v1);
-	for (auto i = v1.begin(); i != v1.end(); ++i)
+	stat = Heap_Sort(v3);
+	for (auto i = v3.begin(); i != v3.end(); ++i)
 	{
 		std::cout << *i << " ";
 	}

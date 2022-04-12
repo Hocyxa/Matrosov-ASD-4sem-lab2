@@ -101,7 +101,7 @@ int main()
 		std::cout << *i << " ";
 	}
 	std::cout << "\n";
-	stat = Heap_Sort(v3);
+//	stat = Heap_Sort(v3);
 	for (auto i = v3.begin(); i != v3.end(); ++i)
 	{
 		std::cout << *i << " ";

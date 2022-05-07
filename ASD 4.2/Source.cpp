@@ -111,57 +111,73 @@ stats Two_Way_Merge_Sort(std::vector<int>& data)
 
 	while (1)
 	{
-		std::vector<int> tmv1(data.size());
-		std::vector<int> tmv2(data.size());
-		int count = 1; //проверка чётности итерации
+
+		bool count = true; //проверка чётности итерации
 		size_t l_old = 0; //пиндекс левой стороны data
 		size_t r_old = tmv.size() - 1; //индекс правой стороны data
 		size_t l_new = 0; //пиндекс левой стороны tmv
 		size_t r_new = tmv.size() - 1; //индекс правой стороны tmv
-		while (l_old != r_old)
+		bool flag = false;
+		while (l_old != r_old )
 		{
+		
+			std::vector<int> tmv1;
+			std::vector<int> tmv2;
 			size_t left_size = 0;//количество элементов слева
 			size_t right_size = 0;//количесвто элементов справа
-			tmv1[0] = data[l_old];
-			for (size_t i = 0; (data[l_old] <= data[l_old + 1]); l_old++)
+			for (size_t i = 0; (data[l_old] <= data[l_old + 1]); ++l_old)
 			{
-				tmv1[i] = data[l_old];
+
+				tmv1.push_back(data[l_old]);
 				if (l_old == tmv.size() - 1) return stat; // <---------------------------------------< return
 				i++;
 				left_size++;
 			}
-			if (left_size == 0) left_size++;
-			tmv2[0] = data[r_old ];
-			for (size_t i = 0; data[r_old] <= data[r_old - 1]; r_old--)
+			if (data[l_old] > data[l_old + 1])
 			{
-				tmv2[i] = data[r_old];
+				tmv1.push_back(data[l_old]);
+				left_size++;
+				l_old++;
+			}
+
+			for (size_t i = 0; data[r_old] <= data[r_old - 1]; --r_old)
+			{
+				tmv2.push_back(data[r_old]);
 				i++;
 				right_size++;
 			}
-			if (right_size == 0) right_size++;
+			if (data[r_old] > data[r_old - 1])
+			{
+				tmv2.push_back(data[r_old]);
+				right_size++;
+				r_old--;
+			}
+
 			std::vector<int> tmv0(left_size + right_size);
 			tmv0 = Merge(tmv1, tmv2, left_size + right_size);
-			if (count % 2 == 1) //пишем слева
+			if (count == true) //пишем слева
 			{
 				for (size_t i = 0; i < left_size + right_size; l_new++)
 				{
 					tmv[l_new] = tmv0[i];
 					i++;
 				}
-				count++;
+				count = false;
 			}
-			if (count % 2 == 0) //пишем справа
+			else //пишем справа
 			{
 				for (size_t i = 0; i < left_size + right_size; r_new--)
 				{
-					tmv[r_new] = tmv[0];
+					tmv[r_new] = tmv0[i];
 					i++;
 				}
-				count++;
+				count = true;
 			}
+
+			
 		}
-
-
+		//tmv[r_old] = data[l_old];
+		data = tmv;
 
 
 		

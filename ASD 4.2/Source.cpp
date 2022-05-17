@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
 
 struct stats {
 	size_t comparison_count = 0;
@@ -58,11 +59,9 @@ stats Sort_Of_Shell(std::vector <int>& v)
 
 bool sorted(std::vector<int>& data)
 {
-	for (size_t i = 0; i < data.size()-1; i++)
+	for (size_t i = 0; i < data.size() - 1; i++)
 	{
-	
-		if (data[i] > data[i+1]) return false;
-	
+		if (data[i] > data[i + 1]) return false;
 	}
 	return true;
 }
@@ -164,12 +163,6 @@ stats Naturial_Two_Way_Merge_Sort(std::vector<int>& data, stats stat)
 			}
 			count = true;
 		}
-		if (tmv0.size() == data.size())
-		{
-			data = tmv;
-			stat.copy_count += tmv.size();
-			return stat;
-		}
 	}
 	if (l_old != data.size())
 	{
@@ -190,7 +183,7 @@ int main()
 	std::vector<int> v1 (10);
 	for (auto i = v1.begin(); i != v1.end(); ++i)
 	{
-		*i = rand() % 10;
+		*i = rand() % 10 - 5;
 	}
 	for (auto i = v1.begin(); i != v1.end(); ++i)
 	{
@@ -211,7 +204,7 @@ int main()
 	std::vector<int> v2 (10);
 	for (auto i = v2.begin(); i != v2.end(); ++i)
 	{
-		*i = rand() % 10;
+		*i = rand() % 10 -5;
 	}
 	for (auto i = v2.begin(); i != v2.end(); ++i)
 	{
@@ -228,17 +221,19 @@ int main()
 	std::cout << "Number of copies:" << stat.copy_count << std::endl;
 	
 	std::cout << std::endl;
-
+	
 	std::vector<int> v3(10);
 	for (auto i = v3.begin(); i != v3.end(); ++i)
 	{
-		*i= rand()%10;
+		*i= rand()%10 -5;
 	}
-	for (auto i = v3.begin(); i != v3.end(); ++i)
+
+	for (auto i = v3.begin();i != v3.end(); ++i)
 	{
 		std::cout << *i << " ";
 	}
 	std::cout << "\n";
+
 	stats null;
 	stat = Naturial_Two_Way_Merge_Sort(v3, null);
 
